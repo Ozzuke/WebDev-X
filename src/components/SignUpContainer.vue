@@ -35,29 +35,29 @@ export default {
     },
     methods: {
         onSignup() {
+            const errors = [];
+
             if (this.password.length < 8) {
-                alert("password is not valid - password must be at least 8 characters long.");
-                return;
+                errors.push("Password must be at least 8 characters long.");
             }
             if (!/[A-Z]/.test(this.password)) {
-                alert("password is not valid - password must contain at least one uppercase letter.");
-                return;
+                errors.push("Password must contain at least one uppercase letter.");
             }
-
             if (!((this.password.match(/[a-z]/g) || []).length >= 2)) {
-                alert("password is not valid - password must contain at least two lowercase letter.");
-                return;
+            errors.push("Password must contain at least two lowercase letters.");
             }
             if (!/[0-9]/.test(this.password)) {
-                alert("password is not valid - password must contain at least one number.");
-                return;
+            errors.push("Password must contain at least one number.");
             }
             if (!/^[A-Z]/.test(this.password)) {
-                alert("password is not valid - password must start with an uppercase alphabet");
-                return;
+                errors.push("Password must start with an uppercase alphabet.");
             }
             if (!/_/.test(this.password)) {
-                alert("password is not valid - password must contain character _");
+                errors.push("Password must contain the character '_'.");
+            }
+
+            if (errors.length > 0) {
+                alert("Password is not valid:\n" + errors.join("\n"));
                 return;
             }
 
