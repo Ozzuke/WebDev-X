@@ -2,6 +2,10 @@
   <div class="home-layout">
     <LeftSidebar/>
 
+    <button @click="handleLogout" id="logout-button">
+      Logout
+    </button>
+
     <main v-if="loading">
       <p>Loading...</p>
     </main>
@@ -62,7 +66,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['fetchPosts', "resetLikes"]),
+    ...mapActions(['fetchPosts']),
     loadPosts() {
       try {
         this.fetchPosts()
@@ -71,6 +75,14 @@ export default {
         this.isError = true
         this.error = e
         console.error('Error loading posts:', e)
+      }
+    },
+    async handleLogout() {
+      try {
+        await this.$store.dispatch('logout')
+        this.$router.push('/login')
+      } catch (e) {
+        console.error('Error logging out:', e)
       }
     }
   },
