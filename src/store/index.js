@@ -47,7 +47,7 @@ export default createStore({
     actions: {
         async fetchPosts({commit}) {
             try {
-                const response = await fetch('http://localhost:69420/api/posts', {
+                const response = await fetch('http://localhost:42069/api/posts', {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
@@ -60,7 +60,7 @@ export default createStore({
         },
         async login({ commit }, credentials) {
             try {
-                const response = await fetch('http://localhost:69420/api/auth/login', {
+                const response = await fetch('http://localhost:42069/api/auth/login', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -77,7 +77,7 @@ export default createStore({
         },
         async signup({ commit }, credentials) {
             try {
-                const response = await  fetch('http://localhost:69420/api/auth/signup', {
+                const response = await  fetch('http://localhost:42069/api/auth/signup', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -95,7 +95,7 @@ export default createStore({
         async logout({ commit }) {
             // invalidate the token on the server
             try {
-                await fetch('http://localhost:69420/api/auth/logout', {
+                await fetch('http://localhost:42069/api/auth/logout', {
                     method: 'POST',
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -109,7 +109,7 @@ export default createStore({
         },
         async addPost({ commit, state }, postData) {
             try {
-                const response = await fetch('http://localhost:69420/api/posts', {
+                const response = await fetch('http://localhost:42069/api/posts', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ export default createStore({
         },
         async updatePost({ commit, state }, { id, postData }) {
             try {
-                const response = await fetch(`http://localhost:69420/api/posts/${id}`, {
+                const response = await fetch(`http://localhost:42069/api/posts/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ export default createStore({
         },
         async deletePost({ commit, state }, postId) {
             try {
-                await fetch(`http://localhost:69420/api/posts/${postId}`, {
+                await fetch(`http://localhost:42069/api/posts/${postId}`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${state.token}`
@@ -158,7 +158,7 @@ export default createStore({
         },
         async deleteAllPosts({ commit, state }) {
             try {
-                await fetch('http://localhost:69420/api/posts', {
+                await fetch('http://localhost:42069/api/posts', {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${state.token}`
