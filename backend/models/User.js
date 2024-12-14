@@ -1,4 +1,4 @@
-const pool = require('../config/database'); // database access
+const pool = require('../config/cloudDatabase'); // database access
 const bcrypt = require('bcrypt'); // hash passwords
 
 class User {

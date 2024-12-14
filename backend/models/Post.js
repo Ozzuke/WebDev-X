@@ -1,4 +1,4 @@
-const pool = require('../config/database'); // database access
+const pool = require('../config/cloudDatabase'); // database access
 const sanitize = require('sanitize-html'); // for input sanitization
 
 class Post {
