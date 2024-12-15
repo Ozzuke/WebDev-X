@@ -6,4 +6,3 @@ Team members:
 - Robyn Tomson
 
 Link to repo: https://github.com/Ozzuke/WebDev-X
-GH Pages: https://ozzuke.github.io/WebDev-X
