@@ -9,7 +9,7 @@ export default createStore({
     getters: {
         posts: state => state.posts,
         isAuthenticated: state => !!state.token,
-        user: state => state.user
+        user: state => state.user,
     },
     mutations: {
         setPosts(state, posts) {
@@ -58,7 +58,7 @@ export default createStore({
                 console.error('Error fetching posts:', error)
             }
         },
-        async login({ commit }, credentials) {
+        async login({commit}, credentials) {
             try {
                 const response = await fetch('http://localhost:42069/api/auth/login', {
                     method: 'POST',
@@ -75,9 +75,9 @@ export default createStore({
                 throw error
             }
         },
-        async signup({ commit }, credentials) {
+        async signup({commit}, credentials) {
             try {
-                const response = await  fetch('http://localhost:42069/api/auth/signup', {
+                const response = await fetch('http://localhost:42069/api/auth/signup', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ export default createStore({
                 throw error
             }
         },
-        async logout({ commit }) {
+        async logout({commit}) {
             // invalidate the token on the server
             try {
                 await fetch('http://localhost:42069/api/auth/logout', {
@@ -107,7 +107,7 @@ export default createStore({
                 commit('logout')
             }
         },
-        async addPost({ commit, state }, postData) {
+        async addPost({commit, state}, postData) {
             try {
                 const response = await fetch('http://localhost:42069/api/posts', {
                     method: 'POST',
@@ -124,7 +124,7 @@ export default createStore({
                 throw error
             }
         },
-        async updatePost({ commit, state }, { id, postData }) {
+        async updatePost({commit, state}, {id, postData}) {
             try {
                 const response = await fetch(`http://localhost:42069/api/posts/${id}`, {
                     method: 'PUT',
@@ -142,7 +142,7 @@ export default createStore({
             }
 
         },
-        async deletePost({ commit, state }, postId) {
+        async deletePost({commit, state}, postId) {
             try {
                 await fetch(`http://localhost:42069/api/posts/${postId}`, {
                     method: 'DELETE',
@@ -156,7 +156,7 @@ export default createStore({
                 throw error
             }
         },
-        async deleteAllPosts({ commit, state }) {
+        async deleteAllPosts({commit, state}) {
             try {
                 await fetch('http://localhost:42069/api/posts', {
                     method: 'DELETE',

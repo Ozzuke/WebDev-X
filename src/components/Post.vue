@@ -83,14 +83,14 @@ export default {
     </div>
 
     <div class="post-footer">
-      <div class="post-reactions">
-        <div v-for="(count, reaction) in post.reactions" :key="reaction" class="reaction">
-          <button @click="handleReaction(reaction)">
-            <img :src="require(`@/assets/images/${reaction}.svg`)" :alt="`${reaction} button`">
-          </button>
-          <span class="reaction-count">{{ count }}</span>
-        </div>
-      </div>
+<!--      <div class="post-reactions">-->
+<!--        <div v-for="(count, reaction) in post.reactions" :key="reaction" class="reaction">-->
+<!--          <button @click="handleReaction(reaction)">-->
+<!--            <img :src="require(`@/assets/images/${reaction}.svg`)" :alt="`${reaction} button`">-->
+<!--          </button>-->
+<!--          <span class="reaction-count">{{ count }}</span>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </article>
 </template>

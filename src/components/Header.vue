@@ -23,6 +23,16 @@ export default {
     userName() {
       return generateName();
     }
+  },
+  methods: {
+    async handleLogout() {
+      try {
+        await this.$store.dispatch('logout');
+        this.$router.push('/login');
+      } catch (e) {
+        console.error('Error logging out:', e);
+      }
+    }
   }
 }
 </script>
@@ -44,7 +54,9 @@ export default {
           <p id="user-name">{{ userName.fullName }}</p>
           <p id="user-email">{{ userName.email }}</p>
         </div>
-        <RouterLink to="/login">Logout</RouterLink>
+        <RouterLink to="/login" @click="handleLogout">
+          Logout
+        </RouterLink>
       </div>
     </div>
   </header>

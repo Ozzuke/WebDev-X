@@ -7,7 +7,7 @@ import SinglePostView from "../views/SinglePostView.vue";
 import Contact from "../views/Contact.vue";
 import { jwtDecode } from 'jwt-decode';
 
-  
+
 
 
 const routes = [
@@ -38,7 +38,7 @@ const routes = [
         }
     },
     {
-        path: '/post/:id',
+        path: '/posts/:id',
         name: 'Post',
         component: SinglePostView,
         meta: {
@@ -60,14 +60,6 @@ const routes = [
         component: Contact,
         meta: {
             title: 'Contact | WebDev-X'
-        }
-    },
-    {
-        path: '/single-post',
-        name: 'SinglePost',
-        component: SinglePostView,
-        meta: {
-            title: 'Single Post | WebDev-X'
         }
     }
 ]
@@ -93,7 +85,7 @@ router.beforeEach(async (to, from, next) => {
             }
             return;
         }
-        
+
         if (to.path === '/login' || to.path === '/signup') {
             next('/'); // Redirect authenticated users to the home page
             return;
