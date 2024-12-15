@@ -2,10 +2,6 @@
   <div class="home-layout">
     <LeftSidebar/>
 
-    <button @click="handleLogout" id="logout-button">
-      Logout
-    </button>
-
     <main v-if="loading">
       <p>Loading...</p>
     </main>
@@ -165,4 +161,9 @@ aside {
   border-radius: 5px;
   cursor: pointer;
 }
+#delete-all-posts:hover {
+  background-color: #f66;
+}
 </style>
+
+
