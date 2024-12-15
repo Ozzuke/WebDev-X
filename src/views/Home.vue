@@ -30,8 +30,11 @@
           </RouterLink>
           &gt;
         </span>
-        <button @click="resetLikes" id="reset-likes">
-          Reset Reactions
+<!--        <button @click="resetLikes" id="reset-likes">-->
+<!--          Reset Reactions-->
+<!--        </button>-->
+        <button @click="deleteAllPosts" id="delete-all-posts">
+          Delete All Posts
         </button>
       </div>
     </main>
@@ -84,11 +87,26 @@ export default {
       } catch (e) {
         console.error('Error logging out:', e)
       }
+    },
+    async deleteAllPosts() {
+      const token = localStorage.getItem('token');
+      try {
+        await fetch('http://localhost:42069/api/posts', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        await this.fetchPosts(); // Refresh posts after deletion
+      } catch (e) {
+        console.error('Error deleting posts:', e);
+      }
     }
   },
   created() {
     this.loadPosts()
-  }
+  },
 }
 </script>
 
@@ -137,7 +155,7 @@ aside {
   font-style: italic;
 }
 
-#reset-likes {
+#reset-likes, #delete-all-posts {
   margin-top: 20px;
   padding: 10px;
   background-color: #f00;

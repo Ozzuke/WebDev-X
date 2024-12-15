@@ -47,11 +47,11 @@ export default {
 <template>
   <article class="post">
     <div class="post-header">
-       <img src="../assets/images/default-user-icon.svg" alt="User icon" class="user-icon">
-      <span class="post-author">{{ post.author }}</span>
+      <img src="../assets/images/default-user-icon.svg" alt="User icon" class="user-icon">
+      <span class="post-author"></span>
       <span class="post-date">
-        <time>{{ post.time }}</time>
-        {{ formatDate(new Date(post.date)) }} </span>
+        {{ formatDate(new Date(post.date)) }}
+      </span>
     </div>
 
     <div class="post-content">
