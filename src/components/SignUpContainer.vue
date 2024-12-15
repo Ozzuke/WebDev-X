@@ -4,8 +4,8 @@
             <h2>Sign Up</h2>
             <form @submit.prevent="onSignup">
                 <div class="input-group">
-                    <label for="username">Username</label>
-                    <input v-model="name" type="text" id="username" name="username" required placeholder="Username" />
+                    <label for="email">Email</label>
+                    <input v-model="name" type="text" id="email" name="email" required placeholder="Email" />
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
@@ -29,12 +29,12 @@ export default {
     name: "SignupContainer",
     data() {
         return {
-            username: "",
+            email: "",
             password: "",
         };
     },
     methods: {
-        onSignup() {
+        async onSignup() {
             const errors = [];
 
             if (this.password.length < 8) {
@@ -60,14 +60,34 @@ export default {
                 alert("Password is not valid:\n" + errors.join("\n"));
                 return;
             }
+            
 
-            // Perform signup logic here
+            try {
+            
+            const response = await fetch("http://localhost:42069/api/auth/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: this.email,
+                    password: this.password,
+                }),
+            });
 
-            console.log("Username:", this.username);
-            console.log("Password:", this.password);
+            if (!response.ok) {
+                const errorData = await response.json();
+                alert("Error: " + errorData.message);
+                return;
+            }
 
-            // Example redirect after signup
-            this.$router.push("/");
+            const data = await response.json();
+            alert("Signup successful! Welcome " + data.email);
+            this.$router.push("/login"); // Redirect to login page after signup
+        } catch (error) {
+            console.log("Signup failed:", error);
+            alert("An error occurred during signup.");
+        }
         },
     },
 };

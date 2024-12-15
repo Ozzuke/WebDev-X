@@ -5,6 +5,7 @@ import AddPost from '../views/AddPost.vue'
 import Signup from "../views/Signup.vue"
 import SinglePostView from "../views/SinglePostView.vue";
 import Contact from "@/views/Contact.vue";
+import { jwtDecode } from 'jwt-decode';
 
 const routes = [
     {
@@ -65,20 +66,50 @@ const router = createRouter({
     routes
 })
 
-router.beforeEach((to, from, next) => {
-    document.title = to.meta.title || 'WebDev-X'
-
+router.beforeEach(async (to, from, next) => {
     // Check if the route requires authentication
+    const token = localStorage.getItem('token')
+
+    const publicPaths = ['/login', '/signup', '/contact'];
+
     if (to.meta.requiresAuth) {
-        const token = localStorage.getItem('token')
         if (!token) {
-            // Redirect to login page if the user is not authenticated
-            next('/login')
-            return
+            // If the user is not authenticated, allow only public paths
+            if (publicPaths.includes(to.path)) {
+                next();
+            } else {
+                next('/login'); // Redirect unauthenticated users to login
+            }
+            return;
+        }
+
+        if (to.path === '/login' || to.path === '/signup') {
+            next('/'); // Redirect authenticated users to the home page
+            return;
+        }
+        try {
+            const decodedToken = jwtDecode(token);
+            const currentTime = Date.now() / 1000;
+            if (decodedToken.exp < currentTime) {
+                // Token expired
+                localStorage.removeItem('token');
+                next('/login');
+                return;
+            }
+        } catch (error) {
+            console.error("Invalid token:", error);
+            localStorage.removeItem('token');
+            next('/login');
+            return;
         }
     }
-    // Otherwise continue to the next route as usual
     next()
 })
+
+router.afterEach((to) => {
+    if (to.meta && to.meta.title) {
+        document.title = to.meta.title;
+    }
+});
 
 export default router

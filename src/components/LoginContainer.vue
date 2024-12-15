@@ -5,8 +5,8 @@
       <h3 class="highlight">Welcome Back</h3>
       <form @submit.prevent="handleLogin">
         <div class="input-group">
-          <label for="username">Username</label>
-          <input id="username" type="text" placeholder="Enter username" required/>
+          <label for="email">Email</label>
+          <input id="email" type="text" placeholder="Enter email" required/>
         </div>
         <div class="input-group">
           <label for="password">Password</label>
@@ -30,15 +30,42 @@ export default {
   name: "LoginContainer",
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
     };
   },
   methods: {
-    handleLogin() {
-      // Handle login logic here
-      console.log("Username:", this.username, "Password:", this.password);
-      this.$router.push("/");
+    async handleLogin() {
+      try {
+        const response = await fetch("http://localhost:42069/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: this.email, 
+            password: this.password,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          // If the response is not successful, show an error
+          alert("Login failed: " + (data.error || "An error occurred"));
+          return;
+        }
+
+        // If login is successful, store the token (localStorage or Vuex, for example)
+        localStorage.setItem("authToken", data.token); // or use Vuex to manage authentication
+        alert("Login successful!");
+
+        // Redirect user to a protected homepage
+        this.$router.push("/"); 
+      } catch (error) {
+        console.error("Login failed:", error);
+        alert("An error occurred during login.");
+      }
     }
   },
 };
