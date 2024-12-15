@@ -72,6 +72,7 @@ export default createStore({
                 commit('setUser', data.user)
             } catch (error) {
                 console.error('Error during login:', error)
+                alert('Invalid credentials')
                 throw error
             }
         },
