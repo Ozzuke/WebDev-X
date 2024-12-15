@@ -7,8 +7,8 @@
         <p><strong>Body:</strong>
           <textarea v-model="updatedPost.body" rows="6"></textarea>
         </p>
-        <button @click="updatePost" class="btn-update">Update</button>
-        <button @click="deletePost" class="btn-delete">Delete</button>
+        <button @click="handleUpdate" class="btn-update">Update</button>
+        <button @click="handleDelete" class="btn-delete">Delete</button>
       </div>
       <div v-else>
         <p>Loading post...</p>
@@ -31,7 +31,15 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['fetchPost', 'updatePost', 'deletePost']),
+    ...mapActions(['updatePost', 'deletePost']),
+    async handleUpdate() {
+      await this.updatePost({id: this.post.id, postData: this.updatedPost});
+      this.$router.push('/');
+    },
+    async handleDelete() {
+      await this.deletePost(this.post.id);
+      this.$router.push('/');
+    }
   },
   computed: {
     ...mapState({
