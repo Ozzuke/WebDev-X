@@ -20,6 +20,7 @@
             v-for="post in posts"
             :key="post.id"
             :post="post"
+            @click="$router.push(`/posts/${post.id}`)"
         />
       </div>
       <div>
