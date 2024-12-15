@@ -61,6 +61,14 @@ const routes = [
         meta: {
             title: 'Contact | WebDev-X'
         }
+    },
+    {
+        path: '/single-post',
+        name: 'SinglePost',
+        component: SinglePostView,
+        meta: {
+            title: 'Single Post | WebDev-X'
+        }
     }
 ]
 
