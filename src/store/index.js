@@ -107,13 +107,13 @@ export default createStore({
                 commit('logout')
             }
         },
-        async addPost({commit, state}, postData) {
+        async addPost({commit}, postData) {
             try {
                 const response = await fetch('http://localhost:42069/api/posts', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${state.token}`
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
                     },
                     body: JSON.stringify(postData)
                 })
@@ -124,13 +124,13 @@ export default createStore({
                 throw error
             }
         },
-        async updatePost({commit, state}, {id, postData}) {
+        async updatePost({commit}, {id, postData}) {
             try {
                 const response = await fetch(`http://localhost:42069/api/posts/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${state.token}`
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
                     },
                     body: JSON.stringify(postData)
                 })
@@ -142,12 +142,12 @@ export default createStore({
             }
 
         },
-        async deletePost({commit, state}, postId) {
+        async deletePost({commit}, postId) {
             try {
                 await fetch(`http://localhost:42069/api/posts/${postId}`, {
                     method: 'DELETE',
                     headers: {
-                        Authorization: `Bearer ${state.token}`
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 })
                 commit('deletePost', postId)
@@ -156,12 +156,12 @@ export default createStore({
                 throw error
             }
         },
-        async deleteAllPosts({commit, state}) {
+        async deleteAllPosts({commit}) {
             try {
                 await fetch('http://localhost:42069/api/posts', {
                     method: 'DELETE',
                     headers: {
-                        Authorization: `Bearer ${state.token}`
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
                 })
                 commit('deleteAllPosts')

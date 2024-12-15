@@ -1,4 +1,6 @@
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: "addPostsContainer",
   data() {
@@ -7,32 +9,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["addPost"]),
     async submitPost() {
-      if (!this.postText.trim()) {
-        alert('Post body cannot be empty');
-        return;
-      }
-      const token = localStorage.getItem('token');
-      try {
-        const result = await fetch('http://localhost:42069/api/posts', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
-          body: JSON.stringify({
-            body: this.postText
-          }),        
-          });
-        if (!result.ok){
-          alert('Post creation unsuccessfull');
-        } else {
-          alert('Post created successfully');
-        }
-      } catch (error) {
-        console.error('Error creating post:', error);
-        alert('Failed to create post');
-      }
+      await this.addPost({body: this.postText});
+      this.$router.push('/');
     }
   }
 }
