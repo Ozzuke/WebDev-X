@@ -4,8 +4,11 @@ import Login from '../views/Login.vue'
 import AddPost from '../views/AddPost.vue'
 import Signup from "../views/Signup.vue"
 import SinglePostView from "../views/SinglePostView.vue";
-import Contact from "@/views/Contact.vue";
+import Contact from "../views/Contact.vue";
 import { jwtDecode } from 'jwt-decode';
+
+  
+
 
 const routes = [
     {
@@ -82,7 +85,7 @@ router.beforeEach(async (to, from, next) => {
             }
             return;
         }
-
+        
         if (to.path === '/login' || to.path === '/signup') {
             next('/'); // Redirect authenticated users to the home page
             return;
@@ -105,11 +108,5 @@ router.beforeEach(async (to, from, next) => {
     }
     next()
 })
-
-router.afterEach((to) => {
-    if (to.meta && to.meta.title) {
-        document.title = to.meta.title;
-    }
-});
 
 export default router

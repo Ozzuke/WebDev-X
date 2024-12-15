@@ -41,9 +41,9 @@
 </template>
 
 <script>
-import LeftSidebar from "@/components/LeftSidebar.vue";
-import RightSidebar from "@/components/RightSidebar.vue";
-import Post from "@/components/Post.vue";
+import LeftSidebar from "../components/LeftSidebar.vue";
+import RightSidebar from "../components/RightSidebar.vue";
+import Post from "../components/Post.vue";
 import {mapActions, mapState} from "vuex";
 
 export default {

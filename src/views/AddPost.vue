@@ -1,5 +1,5 @@
 <script>
-import AddPostsContainer from "@/components/addPostsContainer.vue";
+import AddPostsContainer from "../components/addPostsContainer.vue";
 
 export default {
   name: "AddPost",

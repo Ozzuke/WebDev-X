@@ -1,23 +1,52 @@
 <script>
 export default {
-  name: "addPostsContainer"
+  name: "addPostsContainer",
+  data() {
+    return {
+      postText: ''
+    };
+  },
+  methods: {
+    async submitPost() {
+      if (!this.postText.trim()) {
+        alert('Post body cannot be empty');
+        return;
+      }
+      const token = localStorage.getItem('token');
+      try {
+        const result = await fetch('http://localhost:42069/api/posts', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            body: this.postText
+          }),        
+          });
+        if (!result.ok){
+          alert('Post creation unsuccessfull');
+        } else {
+          alert('Post created successfully');
+        }
+      } catch (error) {
+        console.error('Error creating post:', error);
+        alert('Failed to create post');
+      }
+    }
+  }
 }
 </script>
 
 <template>
   <div id="addPost-layout">
-    <form class="addPost-form">
+    <form class="addPost-form" @submit.prevent="submitPost">
       <div>
         <label for="post-text" id="post-text-label">Post body:</label>
-        <textarea id="post-text" name="post-text" rows="6" cols="20" placeholder="textarea"></textarea>
-      </div>
-      <div class="file-selector-div">
-        <p id="image-label-label">Select file:</p>
-        <label for="post-image" id="image-label">Choose File</label>
-        <input type="file" id="post-image" name="post-image" accept="image/*" class="hidden">
+        <textarea v-model="postText" id="post-text" name="post-text" rows="6" cols="20" placeholder="Enter your post content"></textarea>
       </div>
       <div class="submit-button-div">
-        <router-link to="/"><button type="submit" class="submit-button">Create Post</button></router-link>
+        <button type="submit" class="submit-button">Create Post</button>
       </div>
     </form>
   </div>
@@ -75,53 +104,7 @@ textarea {
   cursor: pointer;
 }
 
-.submit-button > a {
-  color: white;
-  font-size: 1em;
-  text-decoration: none;
-}
-
 .submit-button:hover {
   background-color: #45a049;
-}
-
-.hidden {
-  display: none;
-}
-
-.file-selector-div {
-  display: flex;
-  align-items: center;
-}
-
-#image-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: normal;
-  background-color: #444444;
-  color: #f0f0f0;
-  height: 2em;
-  padding: 0 1vw;
-  margin: 0;
-  border-style: none;
-  border-radius: 4px;
-}
-
-#image-label-label {
-  padding-right: 0;
-  margin-right: 1vw;
-}
-
-#post-text-label {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 1vw;
-}
-
-#image-label:hover {
-  background-color: #666666;
-  color: #f0f0f0;
 }
 </style>

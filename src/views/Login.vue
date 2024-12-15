@@ -1,5 +1,5 @@
 <script>
-import LoginContainer from "@/components/LoginContainer.vue";
+import LoginContainer from "../components/LoginContainer.vue";
 
 export default {
   name: "Login",

@@ -1,6 +1,6 @@
 
 <script>
-import SignUpContainer from "@/components/SignUpContainer.vue";
+import SignUpContainer from "../components/SignUpContainer.vue";
 
 export default {
   name: "SignUp",
