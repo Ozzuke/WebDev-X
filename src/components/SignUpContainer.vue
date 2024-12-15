@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
   name: "SignupContainer",
   data() {
@@ -34,6 +36,8 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["signup"]),
+
     async onSignup() {
       const errors = [];
 
@@ -61,31 +65,16 @@ export default {
         return;
       }
 
-
       try {
-        const response = await fetch("http://localhost:42069/api/auth/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: this.email,
-            password: this.password,
-          }),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          alert("Error: " + errorData.error);
-          return;
-        }
-
-        const data = await response.json();
-        alert("Signup successful! Welcome " + data.email);
-        this.$router.push("/login"); // Redirect to login page after signup
+        await this.signup({email: this.email, password: this.password});
+        this.$router.push("/login");
       } catch (error) {
-        console.log("Signup failed:", error);
-        alert("An error occurred during signup.");
+        console.error("Error during signup:", error);
+        if (error.toString() === "Error: User already exists") {
+          alert("User already exists. Please use a different email or login instead.");
+        } else {
+          alert("Signup failed. Please try again.");
+        }
       }
     },
   },

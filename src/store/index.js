@@ -76,6 +76,11 @@ export default createStore({
             }
         },
         async signup({commit}, credentials) {
+            const userExists = await this.dispatch('checkUserExists')
+            if (userExists) {
+                console.error('User already exists')
+                throw new Error('User already exists')
+            }
             try {
                 const response = await fetch('http://localhost:42069/api/auth/signup', {
                     method: 'POST',
@@ -90,6 +95,16 @@ export default createStore({
             } catch (error) {
                 console.error('Error during signup:', error)
                 throw error
+            }
+        },
+        async checkUserExists() {
+            try {
+                await fetch('http://localhost:42069/api/auth/check', {
+                    method: 'GET',
+                })
+                return true
+            } catch (error) {
+                return false
             }
         },
         async logout({commit}) {

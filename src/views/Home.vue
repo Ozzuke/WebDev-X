@@ -86,19 +86,7 @@ export default {
       }
     },
     async deleteAllPosts() {
-      const token = localStorage.getItem('token');
-      try {
-        await fetch('http://localhost:42069/api/posts', {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        await this.fetchPosts(); // Refresh posts after deletion
-      } catch (e) {
-        console.error('Error deleting posts:', e);
-      }
+      await this.$store.dispatch('deleteAllPosts')
     }
   },
   created() {
