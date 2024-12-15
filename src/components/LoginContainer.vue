@@ -6,11 +6,11 @@
       <form @submit.prevent="handleLogin">
         <div class="input-group">
           <label for="email">Email</label>
-          <input id="email" type="text" placeholder="Enter email" required/>
+          <input  v-model="email" id="email" type="text" placeholder="Enter email" required/>
         </div>
         <div class="input-group">
           <label for="password">Password</label>
-          <input id="password" type="password" placeholder="Enter password" required/>
+          <input  v-model="password" id="password" type="password" placeholder="Enter password" required/>
         </div>
         <button type="submit" class="btn-login">Login</button>
       </form>
@@ -57,10 +57,8 @@ export default {
         }
 
         // If login is successful, store the token (localStorage or Vuex, for example)
-        localStorage.setItem("authToken", data.token); // or use Vuex to manage authentication
+        localStorage.setItem("token", data.token); // or use Vuex to manage authentication
         alert("Login successful!");
-
-        // Redirect user to a protected homepage
         this.$router.push("/"); 
       } catch (error) {
         console.error("Login failed:", error);

@@ -6,7 +6,6 @@ const {JWT_SECRET} = require('../middleware/auth');
 const signup = async (req, res) => {
     try {
         const {email, password} = req.body;
-
         if (!email || !password) {
             return res.status(400).json({error: 'Please provide an email and password'});
         }

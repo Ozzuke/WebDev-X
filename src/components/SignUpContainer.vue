@@ -5,7 +5,7 @@
             <form @submit.prevent="onSignup">
                 <div class="input-group">
                     <label for="email">Email</label>
-                    <input v-model="name" type="text" id="email" name="email" required placeholder="Email" />
+                    <input v-model="email" type="text" id="email" name="email" required placeholder="Email" />
                 </div>
                 <div class="input-group">
                     <label for="password">Password</label>
@@ -63,7 +63,6 @@ export default {
             
 
             try {
-            
             const response = await fetch("http://localhost:42069/api/auth/signup", {
                 method: "POST",
                 headers: {
@@ -77,7 +76,7 @@ export default {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                alert("Error: " + errorData.message);
+                alert("Error: " + errorData.error);
                 return;
             }
 
