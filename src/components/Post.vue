@@ -11,10 +11,10 @@ export default {
   },
   computed: {
     userIconSrc() {
-      return require(`@/assets/${this.post.userIcon}`)
+      return this.post.userIcon ? require(`@/assets/${this.post.userIcon}`) : '';
     },
     contentImages() {
-      return this.post.content.images.map(image => require(`@/assets/${image}`))
+      return this.post.content.images ? this.post.content.images.map(image => require(`@/assets/${image}`)) : [];
     }
   },
   methods: {
@@ -29,12 +29,12 @@ export default {
         day: 'numeric'
       })
     },
-    nextImage() {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.post.content.images.length
-    },
-    prevImage() {
-      this.currentImageIndex = (this.currentImageIndex - 1 + this.post.content.images.length) % this.post.content.images.length
-    }
+    // nextImage() {
+    //   this.currentImageIndex = (this.currentImageIndex + 1) % this.post.content.images.length
+    // },
+    // prevImage() {
+    //   this.currentImageIndex = (this.currentImageIndex - 1 + this.post.content.images.length) % this.post.content.images.length
+    // }
   },
   data() {
     return {
@@ -47,7 +47,7 @@ export default {
 <template>
   <article class="post">
     <div class="post-header">
-      <img :src="userIconSrc" alt="User icon" class="user-icon">
+       <img :src="userIconSrc" alt="User icon" class="user-icon">
       <span class="post-author">{{ post.author }}</span>
       <span class="post-date">
         <time>{{ post.time }}</time>
@@ -55,8 +55,8 @@ export default {
     </div>
 
     <div class="post-content">
-      <p v-html="post.content.text"></p>
-      <div v-if="post.content.images" class="post-images">
+      <p v-if="post.content && post.content.text" v-html="post.content.text"></p>
+      <div v-if="post.content && post.content.images" class="post-images">
         <div class="carousel">
           <button
               v-if="post.content.images.length > 1"
