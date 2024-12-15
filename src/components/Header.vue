@@ -34,6 +34,7 @@ export default {
         <li><RouterLink to="/">Home</RouterLink></li>
         <li><RouterLink to="/add-post">Add Post</RouterLink></li>
         <li><RouterLink to="/signup">Sign Up</RouterLink></li>
+        <li><RouterLink to="/contact">Contact us</RouterLink></li>
       </ul>
     </nav>
     <div class="user-icon-container">
