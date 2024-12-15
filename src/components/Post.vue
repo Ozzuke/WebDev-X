@@ -55,31 +55,31 @@ export default {
     </div>
 
     <div class="post-content">
-      <p v-if="post.content && post.content.text" v-html="post.content.text"></p>
-      <div v-if="post.content && post.content.images" class="post-images">
-        <div class="carousel">
-          <button
-              v-if="post.content.images.length > 1"
-              @click="prevImage"
-              class="prev-button"
-              :disabled="currentImageIndex === 0"
-          >
-            &#8249;
-          </button>
-          <img :src="contentImages[currentImageIndex]" alt="Post image">
-          <button
-              v-if="post.content.images.length > 1"
-              @click="nextImage"
-              class="next-button"
-              :disabled="currentImageIndex === post.content.images.length - 1"
-          >
-            &#8250;
-          </button>
-          <div v-if="contentImages.length > 1" class="image-counter">
-            {{ currentImageIndex + 1 }} / {{ post.content.images.length }}
-          </div>
-        </div>
-      </div>
+      <p v-html="post.body"></p>
+<!--      <div class="post-images">-->
+<!--        <div class="carousel">-->
+<!--          <button-->
+<!--              v-if="post.content.images.length > 1"-->
+<!--              @click="prevImage"-->
+<!--              class="prev-button"-->
+<!--              :disabled="currentImageIndex === 0"-->
+<!--          >-->
+<!--            &#8249;-->
+<!--          </button>-->
+<!--          <img :src="contentImages[currentImageIndex]" alt="Post image">-->
+<!--          <button-->
+<!--              v-if="post.content.images.length > 1"-->
+<!--              @click="nextImage"-->
+<!--              class="next-button"-->
+<!--              :disabled="currentImageIndex === post.content.images.length - 1"-->
+<!--          >-->
+<!--            &#8250;-->
+<!--          </button>-->
+<!--          <div v-if="contentImages.length > 1" class="image-counter">-->
+<!--            {{ currentImageIndex + 1 }} / {{ post.content.images.length }}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
 
     <div class="post-footer">
