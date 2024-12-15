@@ -47,7 +47,7 @@ export default {
 <template>
   <article class="post">
     <div class="post-header">
-       <img :src="userIconSrc" alt="User icon" class="user-icon">
+       <img src="../assets/images/default-user-icon.svg" alt="User icon" class="user-icon">
       <span class="post-author">{{ post.author }}</span>
       <span class="post-date">
         <time>{{ post.time }}</time>
