@@ -6,10 +6,10 @@ export default {
 
 <template>
   <aside class="right-sidebar">
-    <h2>Attention!</h2>
-    <p>Due to migration to Vue 3, deployment to GitHub Pages requires a new approach.
+    <h2>Reviewer, attention plase!</h2>
+    <p>The 'Logout' button is located in the headbar under the dropdown menu which appears after clicking the user icon.
 
-      Please refer to the section in README.md for instructions.</p>
+      It is there as a stylistic choice not per a lack of confidence.</p>
   </aside>
 </template>
 

@@ -22,9 +22,9 @@ const signup = async (req, res) => {
         console.error('Error during signup:', error);
         if (error instanceof Error) {
             // Check if error is an instance of Error and log the detailed message
-            res.status(500).json({ error: error.message || 'Internal server error' });
+            res.status(500).json({error: error.message || 'Internal server error'});
         } else {
-            res.status(500).json({ error: 'Unknown error occurred' });
+            res.status(500).json({error: 'Unknown error occurred'});
         }
     }
 }
@@ -61,7 +61,21 @@ const login = async (req, res) => {
     }
 }
 
+const userExists = async (req, res) => {
+    try {
+        const foundUser = await User.findByEmail(req.user.email);
+        if (!foundUser) {
+            res.status(404).json({error: 'User not found'});
+        }
+        res.status(200).end();
+    } catch (error) {
+        console.error('Error checking user:', error);
+        res.status(500).json({error: 'Internal server error'});
+    }
+}
+
 module.exports = {
     signup,
-    login
+    login,
+    userExists
 };
