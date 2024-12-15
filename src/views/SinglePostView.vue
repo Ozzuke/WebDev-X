@@ -32,8 +32,15 @@ export default {
     // Fetch the post based on ID
     async fetchPost() {
       try {
+        const token = localStorage.getItem('token');
         const postId = this.$route.params.id;  // Get the post ID from the route params
-        const response = await fetch(`http://localhost:42069/api/posts/${postId}`);
+        const response = await fetch(`http://localhost:42069/api/posts/${postId}`, {
+          method: 'GET',
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          }
+      });
         const data = await response.json();
         this.post = data;  // Set the post data
         this.updatedPost.body = data.body;  // Pre-fill the update textarea with the current body
@@ -45,11 +52,13 @@ export default {
     // Update the post's body
     async updatePost() {
       try {
+        const token = localStorage.getItem('token');
         const postId = this.$route.params.id;
         const response = await fetch(`http://localhost:42069/api/posts/${postId}`, {
           method: 'PUT',
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
           },
           body: JSON.stringify(this.updatedPost),
         });
@@ -69,9 +78,14 @@ export default {
     // Delete the post
     async deletePost() {
       try {
+        const token = localStorage.getItem('token');
         const postId = this.$route.params.id;
         const response = await fetch(`http://localhost:42069/api/posts/${postId}`, {
           method: 'DELETE',
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
         });
 
         if (response.ok) {
