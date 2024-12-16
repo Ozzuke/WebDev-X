@@ -1,3 +1,7 @@
+// const localurl = 'http://localhost:42069/api'
+const hostedurl = 'https://webdev-x.onrender.com:10000/api'
+const url = hostedurl
+
 import {createStore} from 'vuex'
 
 export default createStore({
@@ -47,7 +51,7 @@ export default createStore({
     actions: {
         async fetchPosts({commit}) {
             try {
-                const response = await fetch('http://localhost:42069/api/posts', {
+                const response = await fetch(`${url}/posts`, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
                     }
@@ -60,7 +64,7 @@ export default createStore({
         },
         async login({commit}, credentials) {
             try {
-                const response = await fetch('http://localhost:42069/api/auth/login', {
+                const response = await fetch(`${url}/auth/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -83,7 +87,7 @@ export default createStore({
                 throw new Error('User already exists')
             }
             try {
-                const response = await fetch('http://localhost:42069/api/auth/signup', {
+                const response = await fetch(`${url}/auth/signup`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -100,7 +104,7 @@ export default createStore({
         },
         async checkUserExists() {
             try {
-                await fetch('http://localhost:42069/api/auth/check', {
+                await fetch(`${url}/auth/check`, {
                     method: 'GET',
                 })
                 return true
@@ -111,7 +115,7 @@ export default createStore({
         async logout({commit}) {
             // invalidate the token on the server
             try {
-                await fetch('http://localhost:42069/api/auth/logout', {
+                await fetch(`${url}/auth/logout`, {
                     method: 'POST',
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -125,7 +129,7 @@ export default createStore({
         },
         async addPost({commit}, postData) {
             try {
-                const response = await fetch('http://localhost:42069/api/posts', {
+                const response = await fetch(`${url}/posts`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -142,7 +146,7 @@ export default createStore({
         },
         async updatePost({commit}, {id, postData}) {
             try {
-                const response = await fetch(`http://localhost:42069/api/posts/${id}`, {
+                const response = await fetch(`${url}/posts/${id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -160,7 +164,7 @@ export default createStore({
         },
         async deletePost({commit}, postId) {
             try {
-                await fetch(`http://localhost:42069/api/posts/${postId}`, {
+                await fetch(`${url}/posts/${postId}`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -174,7 +178,7 @@ export default createStore({
         },
         async deleteAllPosts({commit}) {
             try {
-                await fetch('http://localhost:42069/api/posts', {
+                await fetch(`${url}/posts`, {
                     method: 'DELETE',
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`
